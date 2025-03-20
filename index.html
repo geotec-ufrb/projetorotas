@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa de Roteiros Turísticos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#map">Mapa</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <h1>Roteiros Turísticos em Comunidades Tradicionais</h1>
+  </header>
+  <main>
+    <section id="sobre">
+      <h2>Sobre o Projeto</h2>
+      <p>Este mapa interativo apresenta roteiros turísticos em comunidades tradicionais, destacando a riqueza cultural e natural de cada local.</p>
+    </section>
+    <section id="map-container">
+      <div id="map"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025. Todos os direitos reservados.</p>
+    <a href="#top" id="back-to-top">Voltar ao topo</a>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
