@@ -1,5 +1,5 @@
 // Inicializando o mapa
-var map = L.map('map').setView([-12.45, -38.97], 4); // Latitude e Longitude iniciais
+var map = L.map('map').setView([-14.235, -51.9253], 4); // Centralizado no Brasil com zoom 4
 
 // Carregando o mapa base
 var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -19,15 +19,13 @@ var baseLayers = {
 
 L.control.layers(baseLayers).addTo(map);
 
-// Adicionando uma bússola (norte)
 var north = L.control({ position: "topright" });
 north.onAdd = function(map) {
-  var div = L.DomUtil.create("div", "info legend");
+  var div = L.DomUtil.create("div", "compass");
   div.innerHTML = '<img src="compass.png" alt="Norte" style="width: 50px; height: 50px;">'; // Caminho da imagem da bússola
   return div;
 };
 north.addTo(map);
-
 // Adicionando as legendas fixas no mapa
 var legend = L.control({ position: "bottomright" });
 legend.onAdd = function(map) {
@@ -38,9 +36,9 @@ legend.onAdd = function(map) {
   div.style.borderRadius = "8px";
   div.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.1)";
   div.innerHTML = `
-    
-    <i style="background: #3388ff; width: 12px; height: 12px; display: inline-block; margin-right: 5px;"></i> Roteiros turísticos<br>`
-  ;
+    <strong>Legenda</strong><br>
+    <i style="background: #00ff37ff; width: 12px; height: 12px; display: inline-block; margin-right: 5px;"></i> Municipios com adesão ao Sinapir<br>
+  `;
   return div;
 };
 legend.addTo(map);
@@ -73,13 +71,24 @@ fullscreenControl.addTo(map);
 // Adicionando uma escala ao mapa
 L.control.scale().addTo(map);
 
+// Criando um ícone personalizado para os pins (verde)
+var greenIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', // Ícone verde
+  iconSize: [25, 41], // Tamanho do ícone
+  iconAnchor: [12, 41], // Ponto de ancoragem
+  popupAnchor: [1, -34], // Posição do pop-up
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png', // Sombra do ícone
+  shadowSize: [41, 41], // Tamanho da sombra
+  shadowAnchor: [12, 41] // Ponto de ancoragem da sombra
+});
+
 // Carregando os dados JSON com as comunidades quilombolas
 fetch('rotas_completo.json')
   .then(response => response.json())
   .then(data => {
     data.forEach(comunidade => {
-      // Adicionando marcadores no mapa
-      var marker = L.marker([comunidade.y, comunidade.x]).addTo(map);
+      // Adicionando marcadores no mapa com o ícone verde
+      var marker = L.marker([comunidade.y, comunidade.x], { icon: greenIcon }).addTo(map);
       
       // Criando um pop-up com informações
       marker.bindPopup(`
